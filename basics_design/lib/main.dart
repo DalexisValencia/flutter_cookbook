@@ -158,9 +158,10 @@ class _MyHomePageState extends State<MyHomePage> {
               }
             ),
             ListTile(
-              title: Text('Pagina 2 con animacion 2'),
+              title: Text('Ruta personalizada'),
               onTap: (){
-
+                Navigator.of(context).push(_createRoute());
+                print("ruta automatizada");
               }
             ),
             ListTile(
@@ -196,4 +197,25 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+Route _createRoute(){
+  return PageRouteBuilder(
+    pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
+      return Scaffold(
+         appBar: AppBar(
+            title: Text('_createRoute()')
+          ),
+          body: Center(
+            child: Text('_createRoute()')
+          )
+      );
+    },
+    transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child){
+      return FadeTransition(
+        opacity: animation,
+        child: child,
+      );
+    }
+  );
 }
