@@ -9,7 +9,36 @@ class PageDos extends StatelessWidget{
       ),
       body: Container(
         alignment: Alignment.center,
-        child: Text('segunda pagina!')
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
+              child: Text("Mostrar Snackbar"),
+              onPressed: (){
+               final snackBar = SnackBar(
+                  content: Container(
+                    padding: EdgeInsets.only(top:10, bottom: 10, left: 5),
+                    child: Text("la info"),
+                  ),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: (){
+                      print("devolver la acción");
+                    },
+                  ),
+                  );
+
+                  Scaffold.of(context).showSnackBar(snackBar);
+                  print("accion snackbar 2");
+              },
+            )
+          ]
+        )
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.play_arrow),
+        onPressed: (){
+          print('floating');
+        },
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:basics_design/pages/page1.dart';
+import 'package:basics_design/pages/page2.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,6 +41,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
+            Container(
+              height: 28,
+              decoration: BoxDecoration(
+                color: Colors.blue[700],
+              ),
+            ),
             DrawerHeader(
               child: Text('Drawer Header'),
               decoration: BoxDecoration(
@@ -47,13 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             ),
             ListTile(
-              title: Text('Pagina 1 Normal'),
+              title: Text('Normal'),
               onTap: (){
                 Navigator.of(context).push( MaterialPageRoute( builder: (context) =>  pageOne()));
               }
             ),
             ListTile(
-              title: Text('scale pag'),
+              title: Text('RotationTransition'),
               onTap: (){
                   PageRouteBuilder page = PageRouteBuilder(
                     pageBuilder: (
@@ -75,95 +82,61 @@ class _MyHomePageState extends State<MyHomePage> {
                       Animation<double> secondaryAnimation,
                       Widget child
                     ){
-                      /*Stack(
-                        children: <Widget>[
-                          SlideTransition(
-                            position: Tween<Offset>(
-                              begin: const Offset(0.0,0.0),
-                              end: const Offset(-1.0, 0.0)
-                            ).animate(animation),
-                            child: child, 
-                          )
-                        ],
-                      );*/
-                      // var curve = Curves.elasticInOut;
-                      // var curveTween = CurveTween(curve: curve);
-                      // var tween = Tween(begin:Offset(0.0, 0.1), end :Offset.zero).chain(curveTween);
-                      /*return SlideTransition(
-                        //position: animation.drive(tween),
-                        position: Tween<Offset>(
-                          begin: const Offset(0, -1),
-                          end: Offset.zero
-                        ).animate(animation),
-                        child: child, 
-                      );
-                      return ScaleTransition(
-                        scale: Tween<double>(
-                          begin: 0.0,
-                          end: 1.0
-                        ).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.fastOutSlowIn
-                          )
-                        ),
-                        alignment: Alignment.center,
-                        child: child,
-                      );
-                      return RotationTransition(
-                        turns: Tween<double>(
-                          begin: 0.0,
-                          end: 1.0
-                        ).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.linear
-                          )
-                        ),
-                        child: child,
-                      );
-                      return SizeTransition(
-                        sizeFactor: animation,
-                        child: child,
-                      );
-                      return FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      );
-                      */
-
                       return SlideTransition(
-                        position: Tween<Offset>(
-                          begin: Offset(0.0, -1),
-                          end: Offset.zero
-                        ).animate(animation),
-                        child: RotationTransition(
-                          turns: Tween<double>(
-                            begin: 0.0,
-                            end: 1.0
-                          ).animate(
-                            CurvedAnimation(
-                              parent: animation,
-                              curve: Curves.bounceIn
-                            )
+                          position: Tween<Offset>(
+                            begin: Offset(0.0, -1),
+                            end: Offset.zero
+                          ).animate(animation),
+                          child: RotationTransition(
+                            turns: Tween<double>(
+                              begin: 0.0,
+                              end: 1.0
+                            ).animate(
+                              CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.bounceIn
+                              )
+                            ),
+                            child: child,
                           ),
-                          child: child,
-                        ),
-                      );
+                        );
                     }
                   );
 
                   Navigator.of(context).push(page);
                   print("ahora si ir!!");
               }
-            ),
+          ),
             ListTile(
-              title: Text('Ruta personalizada'),
+              title: Text('page 1 RotationTransition'),
               onTap: (){
-                Navigator.of(context).push(_createRoute());
-                print("ruta automatizada");
+                Navigator.of(context).push(_createRoute(pageOne(),'RotationTransition'));
               }
             ),
+            ListTile(
+              title: Text('page 2 SlideTransition'),
+              onTap: (){
+                Navigator.of(context).push(_createRoute(PageDos(),'SlideTransition'));
+              }
+            ),
+            ListTile(
+              title: Text('page 2 SizeTransition'),
+              onTap: (){
+                Navigator.of(context).push(_createRoute(PageDos(),'SizeTransition'));
+              }
+            ),
+            ListTile(
+              title: Text('page 1 ScaleTransition'),
+              onTap: (){
+                Navigator.of(context).push(_createRoute(pageOne(),'ScaleTransition'));
+              }
+            ),//JoinTransitions
+            ListTile(
+              title: Text('page 3 JoinTransitions'),
+              onTap: (){
+                Navigator.of(context).push(_createRoute(PageDos(),'JoinTransitions'));
+              }
+            ),//
             ListTile(
               title: Text('Cerrar Drawer'),
               onTap: (){
@@ -176,10 +149,29 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Builder(
+        builder: (context){
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  child: Text("Mostrar Snackbar"),
+                  onPressed: () => _displaySnackBar(context),
+                ),
+              ],
+            )
+          );
+        },
+      ),
+      /*body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            RaisedButton(
+              child: Text("Mostrar Snackbar"),
+              onPressed: () => _displaySnackBar(context),
+            ),
             Text(
               'You have pushed the button this many times:',
             ),
@@ -189,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      ),
+      ),*/
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
@@ -199,23 +191,110 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Route _createRoute(){
+Route _createRoute(Widget routeName, String transition) {
   return PageRouteBuilder(
-    pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
-      return Scaffold(
-         appBar: AppBar(
-            title: Text('_createRoute()')
-          ),
-          body: Center(
-            child: Text('_createRoute()')
-          )
-      );
-    },
+    pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) => routeName,
+    /*{
+      return Text('retorna la vista');
+    }*/
     transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child){
-      return FadeTransition(
-        opacity: animation,
-        child: child,
-      );
+      switch (transition) {
+        case 'RotationTransition':
+          return RotationTransition(
+                  turns: Tween<double>(
+                    begin: 0.0,
+                    end: 1.0
+                  ).animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.linear
+                    )
+                  ),
+                  child: child,
+                );
+          break;
+
+          case 'SlideTransition':
+            return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(-1, 0),
+                  end: Offset.zero
+                ).animate(animation),
+                child: child, 
+              );
+          break;
+
+          case 'SizeTransition':
+            return SizeTransition(
+              sizeFactor: animation,
+              child: child,
+            );  
+          break;
+
+          case 'FadeTransition':
+            return FadeTransition(
+                opacity: animation,
+                child: child,
+              );  
+          break;
+
+          case 'ScaleTransition':
+            return ScaleTransition(
+                  scale: Tween<double>(
+                    begin: 0.0,
+                    end: 1.0
+                  ).animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.fastOutSlowIn
+                    )
+                  ),
+                  alignment: Alignment.center,
+                  child: child,
+                );
+          break;
+
+          case 'JoinTransitions':
+            return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: Offset(0.0, -1),
+                      end: Offset.zero
+                    ).animate(animation),
+                    child: RotationTransition(
+                      turns: Tween<double>(
+                        begin: 0.0,
+                        end: 1.0
+                      ).animate(
+                        CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.bounceIn
+                        )
+                      ),
+                      child: child,
+                    ),
+                  );
+          break;
+        default:
+      }
     }
   );
+}
+
+_displaySnackBar(BuildContext context){
+   // Scaffold.of(context).showSnackBar(SnackBar(content: Text('Are you talkin\' to me?')));
+   final snackBar = SnackBar(
+            backgroundColor: Colors.red, 
+            duration: new Duration(seconds: 5),
+            content: Container(
+              padding: EdgeInsets.only(top:10, bottom: 10, left: 5),
+              child: Text("la info"),
+            ),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: (){
+                print("devolver la acción");
+              },
+            ),
+            );
+      Scaffold.of(context).showSnackBar(snackBar);
 }
