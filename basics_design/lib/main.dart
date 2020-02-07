@@ -10,7 +10,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.lightBlue[800],
+        accentColor: Colors.cyan[600],
         primarySwatch: Colors.blue,
+        fontFamily: 'ZhiMangXing',
+        textTheme: TextTheme(
+          headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+          body1: TextStyle(fontSize: 14.0)
+        )
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -283,6 +292,7 @@ Route _createRoute(Widget routeName, String transition) {
 _displaySnackBar(BuildContext context){
    // Scaffold.of(context).showSnackBar(SnackBar(content: Text('Are you talkin\' to me?')));
    final snackBar = SnackBar(
+
             backgroundColor: Colors.red, 
             duration: new Duration(seconds: 5),
             content: Container(
