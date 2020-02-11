@@ -130,6 +130,18 @@ class FocusTextFieldState extends State<FocusTextField>{
           ),
         ),
         RaisedButton(
+          onPressed: () {
+            return showDialog(
+              context: context,
+              builder: (context){
+                return AlertDialog(
+                  content: Text(myController.text)
+                );
+              }
+            );
+          }
+        ),
+        RaisedButton(
           child: Text('Wasted'),
           onPressed: (){
             FocusScope.of(context).requestFocus(myFocusNode);
