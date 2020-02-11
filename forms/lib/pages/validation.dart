@@ -19,7 +19,7 @@ class ValidationFormState extends State<ValidationForm>{
               }
               return null;
             },
-          ),
+          ),  
           RaisedButton(
             onPressed: (){
               if (_formKey.currentState.validate()){
@@ -33,4 +33,16 @@ class ValidationFormState extends State<ValidationForm>{
       ),
     );
   }
+}
+
+class ValidationPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Validation Page"),
+      ),
+      body: ValidationForm(),
+    );
+  } 
 }
