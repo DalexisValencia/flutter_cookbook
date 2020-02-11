@@ -61,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    BuildContext workContext = context;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -108,6 +109,20 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [Column(
           children: <Widget>[
             // ValidationForm(),
+            Builder(
+              builder: (context) =>
+              InkWell(
+                onTap: (){
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(  content: Text('Tap snack') )
+                    );
+                }, //_showSnackBar(workContext),
+                child: Container(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text('Flat Button -')
+                ),
+              ),
+            ),
             Text(
               'You have pushed the button this many times:',
             ),
@@ -142,3 +157,10 @@ Route _createRoute(Widget _child){
     }
   );
 } 
+
+_showSnackBar(BuildContext context){
+  print('deberia mostrar el context');
+  Scaffold.of(context).showSnackBar(
+    SnackBar(  content: Text('Tap') )
+  );
+}

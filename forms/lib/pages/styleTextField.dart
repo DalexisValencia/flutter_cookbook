@@ -130,6 +130,7 @@ class FocusTextFieldState extends State<FocusTextField>{
           ),
         ),
         RaisedButton(
+          child: Text('Show Vale in dialog'),
           onPressed: () {
             return showDialog(
               context: context,
