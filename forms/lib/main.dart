@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forms/pages/validation.dart';
 import 'package:forms/pages/styleTextField.dart';
+import 'package:forms/pages/dismiss.dart';
 
 void main() => runApp(MyApp());
 
@@ -99,6 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   _createRoute(TextFieldPage())
                 );
               },
+            ),
+            ListTile(
+              title: Text('Dismiss'),
+              onTap: (){
+                Navigator.of(context).push(
+                  _createRoute(DismissPageList())
+                );
+              },
             )
           ]
         ) 
@@ -109,6 +118,19 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [Column(
           children: <Widget>[
             // ValidationForm(),
+            GestureDetector(
+              onHorizontalDragStart: (details) {
+                print(details);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                  color: Colors.amber
+                ),
+                width:100,
+                height: 40,
+              ),
+            ),
             Builder(
               builder: (context) =>
               InkWell(
