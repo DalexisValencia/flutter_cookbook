@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:forms/pages/validation.dart';
 import 'package:forms/pages/styleTextField.dart';
 import 'package:forms/pages/dismiss.dart';
-
+import 'package:forms/pages/images.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -62,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    BuildContext workContext = context;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -108,6 +107,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   _createRoute(DismissPageList())
                 );
               },
+            ),
+            ListTile(
+              title: Text('ImagesPage'),
+              onTap: (){
+                Navigator.of(context).push(
+                  _createRoute(ImagesPage())
+                );
+              }
             )
           ]
         ) 
