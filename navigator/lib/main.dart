@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:navigator/model/user.dart';
 import 'package:navigator/pages/accross_page.dart';
+import 'package:navigator/pages/news.dart';
 import 'package:navigator/pages/page1.dart';
 import 'package:navigator/pages/page2.dart';
+import 'package:navigator/pages/selectionScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,19 +20,6 @@ class MyApp extends StatelessWidget {
         '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
         '/first': (context) {
           return  PageOne();
-          /*PageRouteBuilder(
-            pageBuilder: (BuildContext context, Animation animation, Animation animationSecondary) => PageOne(),
-            transitionsBuilder: (BuildContext context, Animation animation, Animation animationSecondary, Widget child){
-              return RotationTransition(
-                turns: Tween<double>(
-                  begin: 0.0,
-                  end: 1.0
-                )
-                .animate(animation),
-                child: child,
-              );
-            }
-          );*/
         },
         '/second': (context){
           return PageTwo();
@@ -97,6 +86,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 }
               ),
+            ),
+            ListTile(
+              title: Text('New list'),
+              onTap: (){
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder:(context, animation, secondaryAnimation) => NewListsPage()
+                    )
+                  );
+              },
             )
           ],
         )
@@ -105,6 +104,15 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[ Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Builder(
+              builder: (context) => 
+              RaisedButton(
+                onPressed: (){
+                  _navigateAndDisplaySelection(context);
+                },
+                child: Text('seleccionar'),
+              )
+            ),
             GestureDetector(
               child: Text('pagina de delaa'),
               onTap: () {
@@ -125,4 +133,17 @@ class _MyHomePageState extends State<MyHomePage> {
       )
     );
   }
+}
+
+_navigateAndDisplaySelection(BuildContext context) async {
+  final result = await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => SelectionPage()),
+  );
+
+  // After the Selection Screen returns a result, hide any previous snackbars
+  // and show the new result.
+  Scaffold.of(context)
+    ..removeCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text("$result")));
 }
